@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<h1>{{ title }}</h1>
+
+<p>{{ content }}</p>
+
+<p>Total number of views are: {{ views }} </p>
+{% else %}
+<p>please login</p>
+{% endif %}
+  
+{% endblock %}

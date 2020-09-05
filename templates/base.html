@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <h1>Stories</h1>
+  <a href="{% url 'home' %}">Home</a> /
+
+  {% if user.is_authenticated %}
+  <a href="{% url 'password_change' %}">Change password</a> / 
+  <a href="{% url 'logout' %}">Log out</a>
+  {% else %}
+  <a href="{% url 'signup' %}">Sign up</a> /
+  <a href="{% url 'login' %}">Login</a> /
+  {% endif %}
+  
+  <hr>
+  {% block content %}
+
+  {% endblock %}
+</body>
+</html>

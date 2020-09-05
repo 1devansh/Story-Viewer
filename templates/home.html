@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Homepage</h2>
+  <p>Welcome to stories  {% if user.is_authenticated %}{{ user.username }}{% else %}visitor{% endif %}</p>
+
+  {% if user.is_authenticated %}
+    {% for s in stories %}
+
+      <p><strong>Title: </strong><a href="{% url 'story' title=s%}">{{ s }}</a></p>
+    {% endfor %}
+
+    
+    <h4>User logins in last 5 minutes:</h4>
+    {% for user in users %}
+      <p>{{ user }}</p>
+    
+    {% endfor %}
+  {% else %}
+
+  {% endif %}
+  <p>
+    <strong>Total user registrations: </strong>{{count}}
+  </p>
+
+{% endblock %}
