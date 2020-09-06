@@ -21,7 +21,7 @@ hyperlink==20.0.1
 idna==2.10
 incremental==17.5.0
 msgpack-python==0.5.6
-psycopg2 @ file:///opt/concourse/worker/volumes/live/c8a4b965-959f-4e6c-7792-4aa881d63c8d/volume/psycopg2_1594305121341/work
+
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
