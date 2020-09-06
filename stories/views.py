@@ -16,7 +16,9 @@ def home(request):
   check = timezone.now() + timezone.timedelta(minutes=-5)
   
   for user in all_users:
-    
+    if user.last_login is None:
+      user.last_login = timezone.now()
+      
     if (user.last_login >= check) and (user.is_authenticated):
       user_list.append(user)
   

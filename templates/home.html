@@ -2,20 +2,26 @@
 
 {% block content %}
   <h2>Homepage</h2>
-  <p>Welcome to stories  {% if user.is_authenticated %}{{ user.username }}{% else %}visitor{% endif %}</p>
+  <p>Welcome to stories, <strong>{% if user.is_authenticated %}{{ user.username }}{% else %}visitor{% endif %}</strong></p>
 
   {% if user.is_authenticated %}
+    <div class="card border-info mb-3" style="max-width: 18rem; ">
+      <div class="card-header">User logins in last 5 minutes</div>
+      <div class="card-body text-info">
+        {% for user in users %}
+        <h6 class="card-title">{{ user }}</h5>
+          {% endfor %}
+      </div>
+    </div>
+
     {% for s in stories %}
-
-      <p><strong>Title: </strong><a href="{% url 'story' title=s%}">{{ s }}</a></p>
+      <h3><a href="{% url 'story' title=s%}">{{ s }}</a></h3>
+      <hr>
     {% endfor %}
 
     
-    <h4>User logins in last 5 minutes:</h4>
-    {% for user in users %}
-      <p>{{ user }}</p>
     
-    {% endfor %}
+    
   {% else %}
 
   {% endif %}
