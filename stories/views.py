@@ -8,19 +8,22 @@ from django.utils import timezone
 # Create your views here.
 
 
+
 def home(request):
-  
   store = db.data
   if store:
     titles = store['title']
     contents = store['content']
     view = store['views']
-    print(titles[0], contents[0])
     for i in range(len(titles)):
-      new_story = models.Stories(title=titles[i], content=contents[i],view=view[i])
-      new_story.save()
+      try:
+        models.Stories.objects.get(title=titles[i])
+      except models.Stories.DoesNotExist:
+        new_story = models.Stories(title=titles[i], content=contents[i],view=view[i])
+        new_story.save()
     db.data.clear()
-  
+  else:
+    pass
 
   count = User.objects.count()
   all_users = User.objects.all()
