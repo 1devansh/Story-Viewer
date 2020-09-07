@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from . import models
+from . import models, db
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Count, F, Value
@@ -9,17 +9,30 @@ from django.utils import timezone
 
 
 def home(request):
+  
+  store = db.data
+  if store:
+    titles = store['title']
+    contents = store['content']
+    view = store['views']
+    print(titles[0], contents[0])
+    for i in range(len(titles)):
+      new_story = models.Stories(title=titles[i], content=contents[i],view=view[i])
+      new_story.save()
+    db.data.clear()
+  
+
   count = User.objects.count()
   all_users = User.objects.all()
 
   user_list=[]
-  check = timezone.now() + timezone.timedelta(minutes=-5)
+  check = timezone.now() + timezone.timedelta(minutes=-15)
   
   for user in all_users:
     if user.last_login is None:
       user.last_login = timezone.now()
       
-    if (user.last_login >= check) and (user.is_authenticated):
+    if (user.last_login >= check) and (user.is_authenticated) :
       user_list.append(user)
   
   stories = models.Stories.objects.all()
